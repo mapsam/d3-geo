@@ -1,0 +1,40 @@
+body, html, *, h1, h2, p, a, p a, ol, li, ol li {
+	margin:0;
+	padding:0;
+}
+body {
+	font-family:arial;
+}
+#wrap {
+	display:block;
+	margin:10px auto;
+	width:900px;
+	text-align:left;
+}
+h1 {
+	font-family:arial;
+	font-size:1.6em;
+	color:#444;
+}
+.stroke {
+	fill:none;
+	stroke:#666;
+	stroke-width:2px;
+}
+.graticule {
+	fill:none;
+	stroke:#333;
+	stroke-width:0.5px;
+	stroke-opacity:0.5;
+}
+.county {
+	fill:#c0c0c0;
+	stroke:white;
+	stroke-width:0.2px;
+}
+.highlight {
+	fill:#333;
+}
+.fill {
+	fill: #fff;
+}
