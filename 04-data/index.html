@@ -1,24 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>Topojson</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	<!--[if IE]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+<meta charset="utf-8" />
+<title>d3: Data</title>
+<script type="text/javascript" src="../js/d3.v3.min.js"></script>
+<script type="text/javascript" src="../js/queue.v1.min.js"></script>
+<script type="text/javascript" src="../js/topojson.js"></script>
+<style>
+#wrap {
+	display:block;
+	margin:40px auto;
+	width:900px;
+	text-align:left;
+}
+#map {
+	border:2px solid #999;
+	box-shadow:0 0 0 5px #e5e5e5;
+}
+.stroke {
+	fill:none;
+	stroke:#666;
+	stroke-width:2px;
+}
+.graticule {
+	fill:none;
+	stroke:#c0c0c0;
+	stroke-width:0.5px;
+	stroke-opacity:0.5;
+}
+.county {
+	fill:#c0c0c0;
+	stroke:white;
+	stroke-width:0.2px;
+}
+</style>
+<!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 </head>
-<body>
 
+
+<body>
 <div id="wrap">
 	<div id="map"></div>
-	<h1>Adding data to your d3 map</h1>
 </div>
+<script>
+function init() {
+  setMap();
+}
 
-<script src="js/d3.v3.min.js"></script>
-<script src="js/queue.v1.min.js"></script>
-<script src="js/topojson.js"></script>
-<script src="js/main.js"></script>
+function setMap() {
 
+	var width = 900, 
+		height = 480;  
+
+	projection = d3.geo.albersUsa() 
+		.scale(1000)
+		.translate([width / 2, height / 2])
+		.precision(.1);
+
+	path = d3.geo.path()  
+		.projection(projection);  
+
+	graticule = d3.geo.graticule(); 
+
+	svg = d3.select("#map").append("svg")   
+		.attr("width", width)
+		.attr("height", height);
+
+	svg.append("path")    
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", path);
+
+	loadData();
+}
+
+function loadData() {
+	queue()   
+		.defer(d3.json, "data/usaCounty.json") 
+		//load more data here 
+		.await(drawMap);   
+}
+
+function drawMap(error,state) {
+	svg.selectAll(".county")   
+		.data(topojson.feature(state, state.objects.usaGeo).features)  
+		.enter().append("path") 
+		.attr("class", "county") 
+		.attr("d", path);
+}
+
+window.onload = init();
+</script>
 </body>
 </html>
