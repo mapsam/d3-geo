@@ -1,14 +1,15 @@
 d3-geo
 ======
 
-Series of d3.geo processes.
+Series of d3.geo processes. This is part of a series on d3.geo for the [GISCollective](http://giscollective.org) where posts are given for each example.
 
-<strong>Example 00</strong> - d3 Setup file
-<strong>Example 01</strong> - Establishing a basemap <em>with topojson</em>
-<strong>Example 02</strong> - Establishing a basemap <em>with geojson</em>
-<strong>*Example 03</strong> - Using Queue
-<strong>*Example 04</strong> - Adding data
+Examples:
+---------
 
-<em>*in progress</em>
+**00.** d3 Setup file ([read](http://giscollective.org/d3-introduction-and-setup/))
+**01.** Establishing a basemap with topojson
+**02.** Establishing a basemap with geojson*
+**03.** Using Queue
+**04.** Adding data*
 
-This is part of a series on d3.geo for the <a href="http://giscollective.org">GISCollective</a>
+_*in progress_
