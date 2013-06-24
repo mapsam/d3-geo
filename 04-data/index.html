@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>d3: Data</title>
-<script type="text/javascript" src="../js/d3.v3.min.js"></script>
-<script type="text/javascript" src="../js/queue.v1.min.js"></script>
+<title>d3: Point Data</title>
+<script type="text/javascript" src="../js/d3.v3.js"></script>
 <script type="text/javascript" src="../js/topojson.js"></script>
 <style>
 #wrap {
@@ -17,21 +16,13 @@
 	border:2px solid #999;
 	box-shadow:0 0 0 5px #e5e5e5;
 }
-.stroke {
-	fill:none;
-	stroke:#666;
-	stroke-width:2px;
-}
-.graticule {
-	fill:none;
-	stroke:#c0c0c0;
-	stroke-width:0.5px;
-	stroke-opacity:0.5;
-}
-.county {
+.land {
 	fill:#c0c0c0;
 	stroke:white;
-	stroke-width:0.2px;
+	stroke-width:0.4px;
+}
+.stadium {
+	fill:rgba(70, 130, 180, 0.6);
 }
 </style>
 <!--[if IE]>
@@ -46,49 +37,32 @@
 </div>
 <script>
 function init() {
-  setMap();
+	setMap();
 }
 
 function setMap() {
-
-	var width = 900, 
-		height = 480;  
-
-	projection = d3.geo.albersUsa() 
-		.scale(1000)
-		.translate([width / 2, height / 2])
-		.precision(.1);
-
-	path = d3.geo.path()  
-		.projection(projection);  
-
-	graticule = d3.geo.graticule(); 
-
-	svg = d3.select("#map").append("svg")   
+	var width = 896,
+		height = 500;
+	var svg = d3.select("#map").append("svg")
 		.attr("width", width)
 		.attr("height", height);
-
-	svg.append("path")    
-		.datum(graticule)
-		.attr("class", "graticule")
-		.attr("d", path);
-
-	loadData();
-}
-
-function loadData() {
-	queue()   
-		.defer(d3.json, "data/usaCounty.json") 
-		//load more data here 
-		.await(drawMap);   
-}
-
-function drawMap(error,state) {
-	svg.selectAll(".county")   
-		.data(topojson.feature(state, state.objects.usaGeo).features)  
-		.enter().append("path") 
-		.attr("class", "county") 
-		.attr("d", path);
+	var projection = d3.geo.albersUsa()
+		.scale(1000)
+		.translate([width / 2, height / 2]);
+	var path = d3.geo.path()
+		.projection(projection);
+	d3.json("data/usa.json", function(error, usa) {
+		land = topojson.feature(usa, usa.objects.states);
+		stadiums = topojson.feature(usa, usa.objects.usa_stadiums);
+		svg.append("path")
+			.datum(land)
+			.attr("class", "land")
+			.attr("d", path);
+		svg.append("path")
+			.datum(stadiums)
+			.attr("class", "stadium")
+			.attr("d", path);
+	});
 }
 
 window.onload = init();
