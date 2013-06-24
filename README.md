@@ -6,10 +6,8 @@ Series of d3.geo processes. This is part of a series on d3.geo for the [GISColle
 Examples:
 ---------
 
-0. d3 Setup file ([read](http://giscollective.org/d3-introduction-and-setup/))
-1. Establishing a basemap with topojson
-2. Establishing a basemap with geojson*
-3. Using Queue
-4. Adding data
-
-_*in progress_
+1. **Setup:** d3 start file | ([read](http://giscollective.org/d3-introduction-and-setup/))
+2. **Basemap:** with topojson
+3. **Basemap:** with geojson (_in progress_)
+4. **Queue:** using the file loader manager
+5. **Data:** Adding point data within a combined topojson file
