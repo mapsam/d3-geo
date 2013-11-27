@@ -18,10 +18,13 @@
 		stroke-width:1px;
 	}
 	.cities {
-		fill:red;
-		fill-opacity:0.5;
-		stroke:#fff;
-		stroke-width:2px;
+		fill: red;
+		opacity:0.7;
+	}
+	.labels {
+		fill: #444;
+		font-family:arial;
+		font-size:0.7em;
 	}
 	</style>
 	<!--[if IE]>
@@ -38,10 +41,10 @@
 		height = 500;
 	 
 	var svg = d3.select('#map').append('svg')
-		.attr('width', width)
-		.attr('height', height);
+	    .attr('width', width)
+	    .attr('height', height);
 	 
-	var projection = d3.geo.albers()
+	var projection = d3.geo.albersUsa()
 		.scale(1000)
 		.translate([width / 2, height / 2]);
 	 
@@ -52,34 +55,37 @@
 		.defer(d3.json, 'data/admin1_poly_topo.json')
 		.defer(d3.json, 'data/usa_cities.json')
 		.await(makeMyMap);
-	 
+
 	function makeMyMap(error, states, cities) {
-		
-		var length = cities.features.length;
-		var pops = [];
-		for (var mug=0; mug<length; mug++) {
-			var pop = cities.features[mug].properties.POPULATION;
-			pops.push(Number(pop));
-		}
-		var min = Math.min.apply(Math, pops);
-		var max = Math.max.apply(Math, pops);
-		
-		var radius = d3.scale.sqrt()
-			.domain([min, max])
-			.range([10, 30]);
-		
 		svg.append('path')
 			.datum(topojson.feature(states, states.objects.admin1_poly))
 			.attr('d', path)
 			.attr('class', 'states');
-			
 		svg.selectAll('.cities')
-			.data(cities.features)
-			.enter().append('path')
-			.attr('class', 'cities')
-			.attr('d', path.pointRadius(function(d) { return radius(d.properties.POPULATION); }));
-			
+			.data(cities.features).enter().append('path')
+			.attr('d', path.pointRadius(4))
+			.attr('class', 'cities');
+		svg.selectAll('.labels')
+			.data(cities.features).enter().append('text')
+			.attr('transform', function(d) {
+				return 'translate(' + projection(d.geometry.coordinates) + ')';
+			})
+			.attr('dy', function(d){ // vertical offset
+				var city = d.properties.NAME
+				if (city == 'Washington') {
+					return 8;
+				}
+				else {
+					return -3;
+				}
+			}) 
+			.attr('dx', 3) // horizontal offset
+			.text(function(d) {
+				return d.properties.NAME;
+			})
+			.attr('class', 'labels');
 	}
+
 	</script>
 </body>
 </html>
