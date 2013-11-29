@@ -11,10 +11,20 @@
 		width:900px;
 		height:500px;
 	}
-	.county {
+	#name {
+		position:absolute;
+		top:30px;
+		left:20px;
+		font-family:arial;
+		font-size:3em;
+	}
+	.state {
 		fill:#c0c0c0;
 		stroke:white;
 		stroke-width:1px;
+	}
+	.state:hover {
+		fill:#333;
 	}
 	</style>
 	<!--[if IE]>
@@ -25,7 +35,9 @@
 
 <body>
 	<a href="index.html">List</a>
-	<div id="map"></div>
+	<div id="map">
+		<div id="name"></div>
+	</div>
 
 	<script>
 	var width = 900, 
@@ -43,12 +55,16 @@
 		.attr("width", width)
 		.attr("height", height);
 
-	d3.json("data/admin1_poly_topo.json", function(error,state) {
-		svg.selectAll(".county")   
-			.data(topojson.feature(state, state.objects.admin1_poly).features)  
+	d3.json("data/us.json", function(error,state) {
+		svg.selectAll(".state")   
+			.data(topojson.feature(state, state.objects.usStates).features)  
 			.enter().append("path") 
-			.attr("class", "county") 
-			.attr("d", path);
+			.attr("class", "state") 
+			.attr("d", path)
+			.on('mouseover', function(d) {
+				var abbreviation = d.properties.STATE_ABBR;
+				return document.getElementById('name').innerHTML=abbreviation;
+			})
 	});
 	</script>
 </body>
