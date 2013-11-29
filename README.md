@@ -9,7 +9,8 @@ This is an outline for specific steps when using D3 to create maps. Each .html f
 
 ```Javascript
 XMLHttpRequest cannot load file:/../admin1_poly_topo.json.
-Cross origin requests are only supported for HTTP.```
+Cross origin requests are only supported for HTTP.
+```
 
 I suggest [MAMP](http://www.mamp.info/en/index.html) for Mac or [WAMP](http://www.wampserver.com/en/) for PC so you can effectively grab your data.
 
