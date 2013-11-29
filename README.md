@@ -7,7 +7,9 @@ This is an outline for specific steps when using D3 to create maps. Each .html f
 
 **ONE**: In order for these files to work properly on a local machine you will need to run these .html files on a locally hosted server environment. This will come up when you plan on using data files that exist within another directory or file, which results in cross origin request issues. You may see something like 
 
-```XMLHttpRequest cannot load file:///Documents/mug/d3/d3-geo/data/admin1_poly_topo.json. Cross origin requests are only supported for HTTP.```
+```Javascript
+XMLHttpRequest cannot load file:/../admin1_poly_topo.json.
+Cross origin requests are only supported for HTTP.```
 
 I suggest [MAMP](http://www.mamp.info/en/index.html) for Mac or [WAMP](http://www.wampserver.com/en/) for PC so you can effectively grab your data.
 
