@@ -1,0 +1,67 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:none;}
+
+body {
+	font-family:Arial;
+	font-size:1.0em;
+	background-color:steelblue;
+}
+p, ul, ol {
+	font-size:.9em;
+	color:#e5e5e5;
+	margin-bottom:10px;
+	line-height:1.3em;
+}
+a, 
+p a,
+ul li a,
+ol li a {
+	color:#222;
+	text-decoration:none;
+}
+a:hover, 
+p a:hover,
+ul li a:hover,
+ol li a:hover {
+	text-decoration:underline;
+}
+h1 {
+	color:#333;
+}
+
+#shadow {
+	position:fixed;
+	width:100%;
+	height:20px;
+	top:-20px;
+	box-shadow:0 0 5px 1px #222;
+}
+
+nav {
+	position:fixed;
+	left:0;
+	top:0;
+	width:210px;
+	padding:10px;
+}
+nav h1 {
+	font-weight:900;
+	font-size:4.5em;
+	letter-spacing:-12px;
+	opacity:.3;
+}
+#examples ol {
+	list-style-type: none;
+	margin-left:10px;
+}
+#dat-cook {
+	position:absolute;
+	left:220px;
+	right:0;
+	top:10px;
+	max-width:650px;
+}
+section {
+	padding:20px 0;
+	height:500px;
+}
+
