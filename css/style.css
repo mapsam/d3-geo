@@ -3,11 +3,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 body {
 	font-family:Arial;
 	font-size:1.0em;
-	background-color:steelblue;
+	background-color:#c7d9e8;
 }
 p {
 	font-size:.9em;
-	color:#e5e5e5;
+	color:#333;
 	margin-bottom:10px;
 	line-height:1.3em;
 }
@@ -26,6 +26,7 @@ nav {
 	width:240px;
 	bottom:0;
 	background-color:#ecf2f7;
+	border-right:1px solid #90b4d2;
 }
 nav h1 {
 	font-weight:900;
@@ -58,6 +59,7 @@ nav h1 {
 }
 #examples li a:hover {
 	background-color:#dae6f0;
+	border-left:4px solid #588ebb;
 	padding-left:12px;
 }
 #dat-cook {
