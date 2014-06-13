@@ -1,76 +1,9 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:none;}
+
 
 body {
 	font-family:Arial;
 	font-size:1.0em;
 	background-color:#c7d9e8;
 }
-p {
-	font-size:.9em;
-	color:#333;
-	margin-bottom:10px;
-	line-height:1.3em;
-}
-#shadow {
-	position:fixed;
-	width:100%;
-	height:20px;
-	top:-20px;
-	box-shadow:0 0 5px 1px #222;
-}
 
-nav {
-	position:fixed;
-	left:0;
-	top:0;
-	width:240px;
-	bottom:0;
-	background-color:#ecf2f7;
-	border-right:1px solid #90b4d2;
-}
-nav h1 {
-	font-weight:900;
-	font-size:4.5em;
-	letter-spacing:-12px;
-	opacity:.3;
-}
-#examples ol {
-	list-style-type: none;
-}
-#examples li {
-	border-bottom:1px solid #c7d9e8;
-}
-#examples li a {
-	box-sizing:border-box;  
-	-moz-box-sizing:border-box; 
-	-webkit-box-sizing:border-box;
-	-webkit-transition: 0.2s;
-	-moz-transition: 0.2s;
-	-ms-transition: 0.2s;
-	-o-transition: 0.2s;
-	transition: 0.2s;
-	text-transform:uppercase;
-	text-decoration:none;
-	color:#1c3448;
-	font-size:0.8em;
-	font-weight:600;
-	display:block;
-	padding:8px;
-}
-#examples li a:hover {
-	background-color:#dae6f0;
-	border-left:4px solid #588ebb;
-	padding-left:10px;
-}
-#dat-cook {
-	position:absolute;
-	left:250px;
-	right:0;
-	top:15px;
-	max-width:650px;
-}
-section {
-	padding:20px 0;
-	height:500px;
-}
 
