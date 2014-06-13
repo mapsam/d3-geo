@@ -1,0 +1,12 @@
+# this is the root URL for your site - keep empty if testing locally (or set --baseurl '' in jekyll serve) but if you plan on using
+# jekyll on github pages make sure to specify your baseurl to match the repo directory name
+baseurl:
+
+# site runs locally at localhost:4000 when you run `jekyll serve --watch`
+port:  4000
+
+# ensure UTF-8 character encoding. Be sure to add <meta charset="utf-8"> as well!
+encoding: utf-8
+
+# include Pygments for syntax highlighting
+pygments: true

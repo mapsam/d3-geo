@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<link rel="stylesheet" href="/css/syntax.css">
+	<link rel="stylesheet" href="/css/site.css">
+	<title>My Blog</title>
+</head>
+<body>
+	<header>
+		<ul>
+		{% for weight in (1..10) %}
+		  {% for p in site.pages %}
+		    {% if p.weight == weight %} <!-- weight is defined in your page front matter -->
+		      <li>
+		        <a {% if p.url == page.url %}class="active"{% endif %} href="{{ p.url }}">
+		          {{ p.title }}
+		        </a>
+		      </li>
+		    {% endif %}
+		  {% endfor %}
+		{% endfor %}
+		</ul>
+	</header>

@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Boiler"
+example_desc: 'This is a boilerplate.'
+d3_example: '01-boiler.html'
+---
+&nbsp;
+
+{% highlight html %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>d3: Setup</title>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<style>
+		/* CSS Styles */
+	</style>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div id="map"></div>
+	<script>
+		//d3 code
+	</script>
+</body>
+</html>
+{% endhighlight %}

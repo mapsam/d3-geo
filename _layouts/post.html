@@ -1,0 +1,14 @@
+---
+---
+
+{% include header.html %}
+
+<div class="container">
+	<article>
+		<h1>{{ page.title }}</h1>
+		<p>{{ page.date | date_to_string }}</p>
+		<p>{{ content }}</p>
+	</article>
+</div>
+
+{% include footer.html %}

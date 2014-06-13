@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<link rel="stylesheet" href="/css/syntax.css">
+	<link rel="stylesheet" href="/css/site.css">
+	<title>My Blog</title>
+</head>
+<body>
+	<header>
+		<ul>
+		
+		  
+		     <!-- weight is defined in your page front matter -->
+		      <li>
+		        <a  href="/index.html">
+		          Home
+		        </a>
+		      </li>
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		     <!-- weight is defined in your page front matter -->
+		      <li>
+		        <a  href="/page/index.html">
+		          Page
+		        </a>
+		      </li>
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		  
+		    
+		  
+		    
+		  
+		
+		</ul>
+	</header>
+
+<div class="container">
+	<article>
+		<h1>Topojson Interaction</h1>
+		<p>01 Jan 1010</p>
+		<p><p> </p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>var</span> <span class='nx'>width</span> <span class='o'>=</span> <span class='mi'>900</span><span class='p'>,</span> 
+  <span class='nx'>height</span> <span class='o'>=</span> <span class='mi'>480</span><span class='p'>;</span>  
+
+<span class='nx'>projection</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>albersUsa</span><span class='p'>()</span> 
+  <span class='p'>.</span><span class='nx'>scale</span><span class='p'>(</span><span class='mi'>1000</span><span class='p'>)</span>
+  <span class='p'>.</span><span class='nx'>translate</span><span class='p'>([</span><span class='nx'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>,</span> <span class='nx'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>])</span>
+  <span class='p'>.</span><span class='nx'>precision</span><span class='p'>(.</span><span class='mi'>1</span><span class='p'>);</span>
+
+<span class='nx'>path</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>path</span><span class='p'>()</span>  
+  <span class='p'>.</span><span class='nx'>projection</span><span class='p'>(</span><span class='nx'>projection</span><span class='p'>);</span>  
+
+<span class='nx'>svg</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>select</span><span class='p'>(</span><span class='s2'>&quot;#map&quot;</span><span class='p'>).</span><span class='nx'>append</span><span class='p'>(</span><span class='s2'>&quot;svg&quot;</span><span class='p'>)</span>   
+  <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;width&quot;</span><span class='p'>,</span> <span class='nx'>width</span><span class='p'>)</span>
+  <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;height&quot;</span><span class='p'>,</span> <span class='nx'>height</span><span class='p'>);</span>
+
+<span class='nx'>d3</span><span class='p'>.</span><span class='nx'>json</span><span class='p'>(</span><span class='s2'>&quot;data/us.json&quot;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>error</span><span class='p'>,</span><span class='nx'>state</span><span class='p'>)</span> <span class='p'>{</span>
+  <span class='nx'>svg</span><span class='p'>.</span><span class='nx'>selectAll</span><span class='p'>(</span><span class='s2'>&quot;.state&quot;</span><span class='p'>)</span>   
+    <span class='p'>.</span><span class='nx'>data</span><span class='p'>(</span><span class='nx'>topojson</span><span class='p'>.</span><span class='nx'>feature</span><span class='p'>(</span><span class='nx'>state</span><span class='p'>,</span> <span class='nx'>state</span><span class='p'>.</span><span class='nx'>objects</span><span class='p'>.</span><span class='nx'>usStates</span><span class='p'>).</span><span class='nx'>features</span><span class='p'>)</span>  
+    <span class='p'>.</span><span class='nx'>enter</span><span class='p'>().</span><span class='nx'>append</span><span class='p'>(</span><span class='s2'>&quot;path&quot;</span><span class='p'>)</span> 
+    <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;class&quot;</span><span class='p'>,</span> <span class='s2'>&quot;state&quot;</span><span class='p'>)</span> 
+    <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;d&quot;</span><span class='p'>,</span> <span class='nx'>path</span><span class='p'>)</span>
+    <span class='p'>.</span><span class='nx'>on</span><span class='p'>(</span><span class='s1'>&#39;mouseover&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>d</span><span class='p'>)</span> <span class='p'>{</span>
+      <span class='kd'>var</span> <span class='nx'>abbreviation</span> <span class='o'>=</span> <span class='nx'>d</span><span class='p'>.</span><span class='nx'>properties</span><span class='p'>.</span><span class='nx'>STATE_ABBR</span><span class='p'>;</span>
+      <span class='k'>return</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span><span class='p'>(</span><span class='s1'>&#39;name&#39;</span><span class='p'>).</span><span class='nx'>innerHTML</span><span class='o'>=</span><span class='nx'>abbreviation</span><span class='p'>;</span>
+    <span class='p'>})</span>
+<span class='p'>});</span>
+</code></pre></div></p>
+	</article>
+</div>
+
+<footer>
+</footer>
+<script src="/js/site.js"></script>
+
+</body>
+</html>
