@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "TopoJSON Basemap"
-example_desc: 'Topojson Basemap.'
-d3_example: '02-topojson-basemap.html'
+title: "Graticule"
+d3_example: '04-graticule.html'
 ---
-Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's life there's hope, and need of vittles justo cras Huorns Rohan iaculis vitae. Mount Doom Tom Bombadil Eregion Elrond a sodales.
+
+Add a graticule to the map svg space.
 
 <div class="code-example">
 {% highlight HTML %}
@@ -16,28 +16,38 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <style>
-  body { margin:0; padding:0; }
   #map {
     display:block;
     width:900px;
     height:500px;
   }
-  .county {
+  .graticule {
+    fill:none;
+    stroke:steelblue;
+    stroke-width:1px;
+    stroke-opacity:0.5;
+  }
+  .state {
     fill:#c0c0c0;
     stroke:white;
     stroke-width:1px;
   }
   </style>
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 
+
 <body>
+  <a href="index.html">List</a>
   <div id="map"></div>
 
   <script>
   var width = 900, 
     height = 480;  
 
-  projection = d3.geo.albersUsa() 
+  projection = d3.geo.albers() 
     .scale(1000)
     .translate([width / 2, height / 2])
     .precision(.1);
@@ -45,15 +55,22 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
   path = d3.geo.path()  
     .projection(projection);  
 
+  graticule = d3.geo.graticule(); 
+
   svg = d3.select("#map").append("svg")   
     .attr("width", width)
     .attr("height", height);
 
+  svg.append("path")    
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+
   d3.json("data/admin1_poly_topo.json", function(error,state) {
-    svg.selectAll(".county")   
+    svg.selectAll(".state")   
       .data(topojson.feature(state, state.objects.admin1_poly).features)  
       .enter().append("path") 
-      .attr("class", "county") 
+      .attr("class", "state") 
       .attr("d", path);
   });
   </script>

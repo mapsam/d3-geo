@@ -4,8 +4,9 @@ title: "Boiler"
 example_desc: 'This is a boilerplate.'
 d3_example: '01-boiler.html'
 ---
-&nbsp;
+Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's life there's hope, and need of vittles justo cras Huorns Rohan iaculis vitae. Mount Doom Tom Bombadil Eregion Elrond a sodales.
 
+<div class="code-example">
 {% highlight html %}
 <!DOCTYPE html>
 <html lang="en">
@@ -29,3 +30,4 @@ d3_example: '01-boiler.html'
 </body>
 </html>
 {% endhighlight %}
+</div>

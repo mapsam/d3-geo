@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "TopoJSON Basemap"
-example_desc: 'Topojson Basemap.'
-d3_example: '02-topojson-basemap.html'
+title: "GeoJSON Basemap"
+d3_example: '03-geojson-basemap.html'
 ---
-Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's life there's hope, and need of vittles justo cras Huorns Rohan iaculis vitae. Mount Doom Tom Bombadil Eregion Elrond a sodales.
+
+Make a basemap with a geojson for fun!
 
 <div class="code-example">
 {% highlight HTML %}
@@ -12,32 +12,47 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>d3: Topojson Basemap</title>
+  <title>d3: Geojson Basemap</title>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <style>
-  body { margin:0; padding:0; }
-  #map {
-    display:block;
-    width:900px;
-    height:500px;
-  }
-  .county {
-    fill:#c0c0c0;
-    stroke:white;
-    stroke-width:1px;
-  }
+    #map {
+      display:block;
+      width:900px;
+      height:500px;
+    }
+    .stroke {
+      fill:none;
+      stroke:#666;
+      stroke-width:2px;
+    }
+    .graticule {
+      fill:none;
+      stroke:#c0c0c0;
+      stroke-width:1px;
+      stroke-opacity:0.5;
+    }
+    .state {
+      fill:#c0c0c0;
+      stroke:white;
+      stroke-width:1px;
+    }
   </style>
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 
-<body>
-  <div id="map"></div>
 
+<body>
+  <a href="index.html">List</a>
+  <div id="map"></div>
+  
   <script>
   var width = 900, 
     height = 480;  
 
-  projection = d3.geo.albersUsa() 
+  projection = d3.geo.albers() 
     .scale(1000)
     .translate([width / 2, height / 2])
     .precision(.1);
@@ -50,10 +65,10 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
     .attr("height", height);
 
   d3.json("data/admin1_poly_topo.json", function(error,state) {
-    svg.selectAll(".county")   
+    svg.selectAll(".state")   
       .data(topojson.feature(state, state.objects.admin1_poly).features)  
       .enter().append("path") 
-      .attr("class", "county") 
+      .attr("class", "state") 
       .attr("d", path);
   });
   </script>

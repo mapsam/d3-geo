@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "TopoJSON Basemap"
-example_desc: 'Topojson Basemap.'
-d3_example: '02-topojson-basemap.html'
+title: "Queue.js"
+d3_example: '05-queue.html'
 ---
-Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's life there's hope, and need of vittles justo cras Huorns Rohan iaculis vitae. Mount Doom Tom Bombadil Eregion Elrond a sodales.
+
+Use queue.js to load data before running d3 functions.
 
 <div class="code-example">
 {% highlight HTML %}
@@ -12,27 +12,32 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>d3: Topojson Basemap</title>
+  <title>d3: Queue</title>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
   <style>
-  body { margin:0; padding:0; }
-  #map {
-    display:block;
-    width:900px;
-    height:500px;
-  }
-  .county {
-    fill:#c0c0c0;
-    stroke:white;
-    stroke-width:1px;
-  }
+    #map {
+      display:block;
+      width:900px;
+      height:500px;
+    }
+    .county {
+      fill:#c0c0c0;
+      stroke:white;
+      stroke-width:1px;
+    }
   </style>
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 
-<body>
-  <div id="map"></div>
 
+<body>
+  <a href="index.html">List</a>
+  <div id="map"></div>
+  
   <script>
   var width = 900, 
     height = 480;  
@@ -49,13 +54,19 @@ Mount Doom dinner Gollum dolor i Tolkien Numenoreans Minas Tirith where there's 
     .attr("width", width)
     .attr("height", height);
 
-  d3.json("data/admin1_poly_topo.json", function(error,state) {
+  queue()   
+    .defer(d3.json, "data/admin1_poly_topo.json")
+    //load more data here 
+    .await(drawMap);   
+
+  function drawMap(error,state) {
     svg.selectAll(".county")   
       .data(topojson.feature(state, state.objects.admin1_poly).features)  
       .enter().append("path") 
       .attr("class", "county") 
       .attr("d", path);
-  });
+  }
+
   </script>
 </body>
 </html>

@@ -18,13 +18,15 @@ weight: 1
 	{% for post in site.posts reversed %}
 		<article id="{{ post.date | date: '%Y' }}">
 			<h1><a href="#{{ post.date | date: '%Y' }}">{{ post.title }}</a></h1>
-			<p>{{ post.example_desc }}</p>
-			<ul class="example-tabs">
-				<li class="show-code current">Code</li>
-				<li class="show-example" data-url="{{ post.d3_example }}">Example</li>
+			<!-- <p>{{ post.example_desc }}</p> -->
+			<ul class="tabs" id="{{ post.date | date: '%Y' }}-tabs">
+				<li class="show-code current">code</li>
+				<li class="show-live" data-url="{{ post.d3_example }}">example</li>
 			</ul>
-			<iframe class="example" src="" width="900" height="480"></iframe>
-			<div class="example-code">{{ post.content }}</div>
+			<div class="example-content" id="{{ post.date | date: '%Y' }}-exs">
+				{{ post.content }}
+				<iframe class="ex live" id="{{ post.date | date: '%Y' }}-live" src="" width="900" height="480"></iframe>
+			</div>
 		</article>
 	{% endfor %}
 </div>
