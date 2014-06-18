@@ -112,6 +112,8 @@
 			
 			<li><a href="#1010">Topojson Interaction</a></li>
 			
+			<li><a href="#1011">Reprojection (Destructive)</a></li>
+			
 		</ol>
 	</div>
 </nav>
@@ -955,6 +957,124 @@
 
 </div>
 				<iframe class="ex live" id="1010-live" src="" width="900" height="480"></iframe>
+			</div>
+		</article>
+	
+		<article id="1011">
+			<h1><a href="#1011">Reprojection (Destructive)</a></h1>
+			<!-- <p></p> -->
+			<ul class="tabs" id="1011-tabs">
+				<li class="show-code current">code</li>
+				<li class="show-live" data-url="11-reprojection.html">example</li>
+			</ul>
+			<div class="example-content" id="1011-exs">
+				<p>This example allows the user to choose between two projections. Each time the projeciton is chosen the <em>svg</em> space is removed and redrawn, therefore doesn’t allow for a smooth transition. For a smooth reprojection, one must interpolate between the two projections. <em>Note: This is still pretty hacky</em></p>
+<div class='code-example'>
+
+<div class='highlight'><pre><code class='html'><span class='cp'>&lt;!DOCTYPE html&gt;</span>
+<span class='nt'>&lt;html</span> <span class='na'>lang=</span><span class='s'>&quot;en&quot;</span><span class='nt'>&gt;</span>
+<span class='nt'>&lt;head&gt;</span>
+  <span class='nt'>&lt;meta</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span> <span class='nt'>/&gt;</span>
+  <span class='nt'>&lt;title&gt;</span>d3: Reprojection (no transition)<span class='nt'>&lt;/title&gt;</span>
+  <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;http://d3js.org/d3.v3.min.js&quot;</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+  <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;http://d3js.org/topojson.v1.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
+  <span class='nt'>&lt;style&gt;</span>
+  <span class='nt'>body</span> <span class='p'>{</span> <span class='k'>margin</span><span class='o'>:</span><span class='m'>0</span><span class='p'>;</span> <span class='k'>padding</span><span class='o'>:</span><span class='m'>0</span><span class='p'>;</span> <span class='p'>}</span>
+  <span class='nf'>#map</span> <span class='p'>{</span>
+    <span class='k'>display</span><span class='o'>:</span><span class='k'>block</span><span class='p'>;</span>
+    <span class='k'>width</span><span class='o'>:</span><span class='m'>900px</span><span class='p'>;</span>
+    <span class='k'>height</span><span class='o'>:</span><span class='m'>500px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+  <span class='nc'>.county</span> <span class='p'>{</span>
+    <span class='n'>fill</span><span class='o'>:</span><span class='m'>#c0c0c0</span><span class='p'>;</span>
+    <span class='n'>stroke</span><span class='o'>:</span><span class='nb'>white</span><span class='p'>;</span>
+    <span class='n'>stroke</span><span class='o'>-</span><span class='k'>width</span><span class='o'>:</span><span class='m'>1px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+  <span class='nf'>#projections</span> <span class='p'>{</span>
+    <span class='k'>list-style-type</span><span class='o'>:</span> <span class='k'>none</span><span class='p'>;</span>
+  <span class='p'>}</span>
+  <span class='nf'>#projections</span> <span class='nt'>li</span> <span class='p'>{</span>
+    <span class='k'>display</span><span class='o'>:</span><span class='k'>inline</span><span class='o'>-</span><span class='k'>block</span><span class='p'>;</span>
+    <span class='k'>margin-right</span><span class='o'>:</span><span class='m'>10px</span><span class='p'>;</span>
+    <span class='k'>border</span><span class='o'>:</span><span class='m'>1px</span> <span class='k'>solid</span> <span class='m'>#333</span><span class='p'>;</span>
+    <span class='k'>padding</span><span class='o'>:</span><span class='m'>10px</span><span class='p'>;</span>
+  <span class='p'>}</span>
+  <span class='nf'>#projections</span> <span class='nt'>li</span><span class='nd'>:hover</span> <span class='p'>{</span>
+    <span class='k'>cursor</span><span class='o'>:</span><span class='k'>pointer</span><span class='p'>;</span>
+  <span class='p'>}</span>
+  <span class='nt'>&lt;/style&gt;</span>
+<span class='nt'>&lt;/head&gt;</span>
+
+<span class='nt'>&lt;body&gt;</span>
+  <span class='nt'>&lt;ul</span> <span class='na'>id=</span><span class='s'>&quot;projections&quot;</span><span class='nt'>&gt;</span>
+    <span class='nt'>&lt;li</span> <span class='na'>id=</span><span class='s'>&quot;conicEqui&quot;</span><span class='nt'>&gt;</span>Conic Equidistant<span class='nt'>&lt;/li&gt;</span>
+    <span class='nt'>&lt;li</span> <span class='na'>id=</span><span class='s'>&quot;azimuthal&quot;</span><span class='nt'>&gt;</span>Azimuthal Equidistant<span class='nt'>&lt;/li&gt;</span>
+  <span class='nt'>&lt;/ul&gt;</span>
+  <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;map&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+
+  <span class='nt'>&lt;script&gt;</span>
+
+  <span class='kd'>var</span> <span class='nx'>width</span> <span class='o'>=</span> <span class='mi'>900</span><span class='p'>,</span> 
+    <span class='nx'>height</span> <span class='o'>=</span> <span class='mi'>480</span><span class='p'>;</span>  
+
+  <span class='nx'>conicEqui</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>conicEquidistant</span><span class='p'>()</span> 
+    <span class='p'>.</span><span class='nx'>scale</span><span class='p'>(</span><span class='mi'>200</span><span class='p'>)</span>
+    <span class='p'>.</span><span class='nx'>translate</span><span class='p'>([</span><span class='nx'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>,</span> <span class='nx'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>])</span>
+    <span class='p'>.</span><span class='nx'>precision</span><span class='p'>(.</span><span class='mi'>1</span><span class='p'>);</span>
+
+  <span class='nx'>azimuthal</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>azimuthalEquidistant</span><span class='p'>()</span>
+    <span class='p'>.</span><span class='nx'>scale</span><span class='p'>(</span><span class='mi'>200</span><span class='p'>)</span>
+    <span class='p'>.</span><span class='nx'>translate</span><span class='p'>([</span><span class='nx'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>,</span> <span class='nx'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>])</span>
+    <span class='p'>.</span><span class='nx'>precision</span><span class='p'>(.</span><span class='mi'>1</span><span class='p'>);</span>
+
+  <span class='nx'>projection</span> <span class='o'>=</span> <span class='nx'>getActiveProjection</span><span class='p'>();</span>
+
+  <span class='kd'>function</span> <span class='nx'>drawMap</span><span class='p'>(</span><span class='nx'>projection</span><span class='p'>)</span> <span class='p'>{</span>
+    <span class='nx'>console</span><span class='p'>.</span><span class='nx'>log</span><span class='p'>(</span><span class='s1'>&#39;reprojected!&#39;</span><span class='p'>);</span>
+    <span class='nx'>path</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>path</span><span class='p'>()</span>  
+      <span class='p'>.</span><span class='nx'>projection</span><span class='p'>(</span><span class='nx'>projection</span><span class='p'>);</span>  
+
+    <span class='nx'>svg</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>select</span><span class='p'>(</span><span class='s2'>&quot;#map&quot;</span><span class='p'>).</span><span class='nx'>append</span><span class='p'>(</span><span class='s2'>&quot;svg&quot;</span><span class='p'>)</span>   
+      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;width&quot;</span><span class='p'>,</span> <span class='nx'>width</span><span class='p'>)</span>
+      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;height&quot;</span><span class='p'>,</span> <span class='nx'>height</span><span class='p'>);</span>
+
+    <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>json</span><span class='p'>(</span><span class='s2'>&quot;data/world_topo.json&quot;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>error</span><span class='p'>,</span><span class='nx'>countries</span><span class='p'>)</span> <span class='p'>{</span>
+      <span class='nx'>svg</span><span class='p'>.</span><span class='nx'>selectAll</span><span class='p'>(</span><span class='s2'>&quot;.county&quot;</span><span class='p'>)</span>   
+        <span class='p'>.</span><span class='nx'>data</span><span class='p'>(</span><span class='nx'>topojson</span><span class='p'>.</span><span class='nx'>feature</span><span class='p'>(</span><span class='nx'>countries</span><span class='p'>,</span> <span class='nx'>countries</span><span class='p'>.</span><span class='nx'>objects</span><span class='p'>.</span><span class='nx'>world</span><span class='p'>).</span><span class='nx'>features</span><span class='p'>)</span>  
+        <span class='p'>.</span><span class='nx'>enter</span><span class='p'>().</span><span class='nx'>append</span><span class='p'>(</span><span class='s2'>&quot;path&quot;</span><span class='p'>)</span> 
+        <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;class&quot;</span><span class='p'>,</span> <span class='s2'>&quot;county&quot;</span><span class='p'>)</span> 
+        <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s2'>&quot;d&quot;</span><span class='p'>,</span> <span class='nx'>path</span><span class='p'>);</span>
+    <span class='p'>});</span>
+  <span class='p'>}</span>
+  
+  <span class='kd'>function</span> <span class='nx'>init</span><span class='p'>()</span> <span class='p'>{</span>
+    <span class='nx'>drawMap</span><span class='p'>(</span><span class='nx'>conicEqui</span><span class='p'>);</span>
+    <span class='kd'>var</span> <span class='nx'>projections</span> <span class='o'>=</span> <span class='nb'>document</span><span class='p'>.</span><span class='nx'>getElementById</span><span class='p'>(</span><span class='s1'>&#39;projections&#39;</span><span class='p'>).</span><span class='nx'>childNodes</span><span class='p'>;</span>
+    <span class='k'>for</span> <span class='p'>(</span><span class='nx'>i</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>,</span> <span class='nx'>len</span> <span class='o'>=</span> <span class='nx'>projections</span><span class='p'>.</span><span class='nx'>length</span><span class='p'>;</span> <span class='nx'>i</span> <span class='o'>&lt;</span> <span class='nx'>len</span><span class='p'>;</span> <span class='nx'>i</span><span class='o'>++</span><span class='p'>){</span>
+      <span class='nx'>projections</span><span class='p'>[</span><span class='nx'>i</span><span class='p'>].</span><span class='nx'>onclick</span><span class='o'>=</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
+        <span class='kd'>var</span> <span class='nx'>id</span> <span class='o'>=</span> <span class='k'>this</span><span class='p'>.</span><span class='nx'>id</span><span class='p'>;</span>
+        <span class='k'>if</span><span class='p'>(</span><span class='nx'>id</span><span class='o'>==</span><span class='s1'>&#39;azimuthal&#39;</span><span class='p'>)</span> <span class='p'>{</span>
+          <span class='nx'>proj</span> <span class='o'>=</span> <span class='nx'>azimuthal</span><span class='p'>;</span>
+        <span class='p'>}</span> <span class='k'>else</span> <span class='p'>{</span>
+          <span class='nx'>proj</span> <span class='o'>=</span> <span class='nx'>conicEqui</span><span class='p'>;</span>
+        <span class='p'>}</span>
+        <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>select</span><span class='p'>(</span><span class='s1'>&#39;svg&#39;</span><span class='p'>).</span><span class='nx'>remove</span><span class='p'>();</span>
+        <span class='nx'>drawMap</span><span class='p'>(</span><span class='nx'>proj</span><span class='p'>);</span>
+      <span class='p'>}</span>
+    <span class='p'>}</span>
+
+  <span class='p'>}</span>
+  <span class='nb'>window</span><span class='p'>.</span><span class='nx'>onload</span> <span class='o'>=</span> <span class='nx'>init</span><span class='p'>();</span>
+
+  <span class='p'>}</span>
+  
+  <span class='nt'>&lt;/script&gt;</span>
+<span class='nt'>&lt;/body&gt;</span>
+<span class='nt'>&lt;/html&gt;</span>
+</code></pre></div>
+
+</div>
+				<iframe class="ex live" id="1011-live" src="" width="900" height="480"></iframe>
 			</div>
 		</article>
 	
