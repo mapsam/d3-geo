@@ -93,80 +93,81 @@
 		<h1>Data Points</h1>
 		<p>01 Jan 1006</p>
 		<p><p>Adding point data</p>
-<div class='code-example'>
 
-<div class='highlight'><pre><code class='html'><span class='cp'>&lt;!DOCTYPE html&gt;</span>
-<span class='nt'>&lt;html</span> <span class='na'>lang=</span><span class='s'>&quot;en&quot;</span><span class='nt'>&gt;</span>
-<span class='nt'>&lt;head&gt;</span>
-  <span class='nt'>&lt;meta</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span> <span class='nt'>/&gt;</span>
-  <span class='nt'>&lt;title&gt;</span>d3: Point Data<span class='nt'>&lt;/title&gt;</span>
-  <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;http://d3js.org/d3.v3.min.js&quot;</span> <span class='na'>charset=</span><span class='s'>&quot;utf-8&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
-  <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;http://d3js.org/topojson.v1.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
-  <span class='nt'>&lt;script </span><span class='na'>src=</span><span class='s'>&quot;http://d3js.org/queue.v1.min.js&quot;</span><span class='nt'>&gt;&lt;/script&gt;</span>
-  <span class='nt'>&lt;style&gt;</span>
-  <span class='nf'>#map</span> <span class='p'>{</span>
-    <span class='k'>display</span><span class='o'>:</span><span class='k'>block</span><span class='p'>;</span>
-    <span class='k'>width</span><span class='o'>:</span><span class='m'>900px</span><span class='p'>;</span>
-    <span class='k'>height</span><span class='o'>:</span><span class='m'>500px</span><span class='p'>;</span>
-  <span class='p'>}</span>
-  <span class='nc'>.states</span> <span class='p'>{</span>
-    <span class='n'>fill</span><span class='o'>:</span> <span class='m'>#e5e5e5</span><span class='p'>;</span>
-    <span class='n'>stroke</span><span class='o'>:</span> <span class='m'>#fff</span><span class='p'>;</span>
-    <span class='n'>stroke</span><span class='o'>-</span><span class='k'>width</span><span class='o'>:</span><span class='m'>1px</span><span class='p'>;</span>
-  <span class='p'>}</span>
-  <span class='nc'>.cities</span> <span class='p'>{</span>
-    <span class='n'>fill</span><span class='o'>:</span> <span class='nb'>red</span><span class='p'>;</span>
-    <span class='k'>opacity</span><span class='o'>:</span><span class='m'>0</span><span class='o'>.</span><span class='m'>7</span><span class='p'>;</span>
-  <span class='p'>}</span>
-  <span class='nt'>&lt;/style&gt;</span>
-  <span class='c'>&lt;!--[if IE]&gt;</span>
-<span class='c'>    &lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</span>
-<span class='c'>  &lt;![endif]--&gt;</span>
-<span class='nt'>&lt;/head&gt;</span>
+<div class="code-example">
+
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;title&gt;</span>d3: Point Data<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://d3js.org/d3.v3.min.js&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://d3js.org/topojson.v1.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://d3js.org/queue.v1.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;style&gt;</span>
+  <span class="nf">#map</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span><span class="m">900px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span><span class="m">500px</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.states</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="o">:</span> <span class="m">#e5e5e5</span><span class="p">;</span>
+    <span class="n">stroke</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="n">stroke</span><span class="o">-</span><span class="k">width</span><span class="o">:</span><span class="m">1px</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.cities</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nt">&lt;/style&gt;</span>
+  <span class="c">&lt;!--[if IE]&gt;</span>
+<span class="c">    &lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</span>
+<span class="c">  &lt;![endif]--&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
 
 
-<span class='nt'>&lt;body&gt;</span>
-  <span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;index.html&quot;</span><span class='nt'>&gt;</span>List<span class='nt'>&lt;/a&gt;</span>
-  <span class='nt'>&lt;div</span> <span class='na'>id=</span><span class='s'>&quot;map&quot;</span><span class='nt'>&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;index.html&quot;</span><span class="nt">&gt;</span>List<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
   
-  <span class='nt'>&lt;script&gt;</span>
-  <span class='kd'>var</span> <span class='nx'>width</span> <span class='o'>=</span> <span class='mi'>960</span><span class='p'>,</span>
-    <span class='nx'>height</span> <span class='o'>=</span> <span class='mi'>500</span><span class='p'>;</span>
+  <span class="nt">&lt;script&gt;</span>
+  <span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">960</span><span class="p">,</span>
+    <span class="nx">height</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
    
-  <span class='kd'>var</span> <span class='nx'>svg</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>select</span><span class='p'>(</span><span class='s1'>&#39;#map&#39;</span><span class='p'>).</span><span class='nx'>append</span><span class='p'>(</span><span class='s1'>&#39;svg&#39;</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;width&#39;</span><span class='p'>,</span> <span class='nx'>width</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;height&#39;</span><span class='p'>,</span> <span class='nx'>height</span><span class='p'>);</span>
+  <span class="kd">var</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#map&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
    
-  <span class='kd'>var</span> <span class='nx'>projection</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>albersUsa</span><span class='p'>()</span>
-    <span class='p'>.</span><span class='nx'>scale</span><span class='p'>(</span><span class='mi'>1000</span><span class='p'>)</span>
-    <span class='p'>.</span><span class='nx'>translate</span><span class='p'>([</span><span class='nx'>width</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>,</span> <span class='nx'>height</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>]);</span>
+  <span class="kd">var</span> <span class="nx">projection</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">geo</span><span class="p">.</span><span class="nx">albersUsa</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">translate</span><span class="p">([</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]);</span>
    
-  <span class='kd'>var</span> <span class='nx'>path</span> <span class='o'>=</span> <span class='nx'>d3</span><span class='p'>.</span><span class='nx'>geo</span><span class='p'>.</span><span class='nx'>path</span><span class='p'>()</span>
-    <span class='p'>.</span><span class='nx'>projection</span><span class='p'>(</span><span class='nx'>projection</span><span class='p'>);</span>
+  <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">geo</span><span class="p">.</span><span class="nx">path</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">projection</span><span class="p">(</span><span class="nx">projection</span><span class="p">);</span>
     
-  <span class='nx'>queue</span><span class='p'>()</span>
-    <span class='p'>.</span><span class='nx'>defer</span><span class='p'>(</span><span class='nx'>d3</span><span class='p'>.</span><span class='nx'>json</span><span class='p'>,</span> <span class='s1'>&#39;data/admin1_poly_topo.json&#39;</span><span class='p'>)</span>
-    <span class='p'>.</span><span class='nx'>defer</span><span class='p'>(</span><span class='nx'>d3</span><span class='p'>.</span><span class='nx'>json</span><span class='p'>,</span> <span class='s1'>&#39;data/usa_cities.json&#39;</span><span class='p'>)</span>
-    <span class='p'>.</span><span class='nx'>await</span><span class='p'>(</span><span class='nx'>makeMyMap</span><span class='p'>);</span>
+  <span class="nx">queue</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">defer</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span> <span class="s1">&#39;data/admin1_poly_topo.json&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">defer</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span> <span class="s1">&#39;data/usa_cities.json&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">await</span><span class="p">(</span><span class="nx">makeMyMap</span><span class="p">);</span>
 
-  <span class='kd'>function</span> <span class='nx'>makeMyMap</span><span class='p'>(</span><span class='nx'>error</span><span class='p'>,</span> <span class='nx'>states</span><span class='p'>,</span> <span class='nx'>cities</span><span class='p'>)</span> <span class='p'>{</span>
-    <span class='nx'>svg</span><span class='p'>.</span><span class='nx'>append</span><span class='p'>(</span><span class='s1'>&#39;path&#39;</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>datum</span><span class='p'>(</span><span class='nx'>topojson</span><span class='p'>.</span><span class='nx'>feature</span><span class='p'>(</span><span class='nx'>states</span><span class='p'>,</span> <span class='nx'>states</span><span class='p'>.</span><span class='nx'>objects</span><span class='p'>.</span><span class='nx'>admin1_poly</span><span class='p'>))</span>
-        <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;d&#39;</span><span class='p'>,</span> <span class='nx'>path</span><span class='p'>)</span>
-        <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;class&#39;</span><span class='p'>,</span> <span class='s1'>&#39;states&#39;</span><span class='p'>);</span>
-    <span class='nx'>svg</span><span class='p'>.</span><span class='nx'>selectAll</span><span class='p'>(</span><span class='s1'>&#39;.cities&#39;</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>data</span><span class='p'>(</span><span class='nx'>cities</span><span class='p'>.</span><span class='nx'>features</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>enter</span><span class='p'>()</span>
-      <span class='p'>.</span><span class='nx'>append</span><span class='p'>(</span><span class='s1'>&#39;path&#39;</span><span class='p'>)</span>
-      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;d&#39;</span><span class='p'>,</span> <span class='nx'>path</span><span class='p'>.</span><span class='nx'>pointRadius</span><span class='p'>(</span><span class='mi'>5</span><span class='p'>))</span>
-      <span class='p'>.</span><span class='nx'>attr</span><span class='p'>(</span><span class='s1'>&#39;class&#39;</span><span class='p'>,</span> <span class='s1'>&#39;cities&#39;</span><span class='p'>);</span>
-  <span class='p'>}</span>
-  <span class='nt'>&lt;/script&gt;</span>
-<span class='nt'>&lt;/body&gt;</span>
-<span class='nt'>&lt;/html&gt;</span>
-</code></pre></div>
+  <span class="kd">function</span> <span class="nx">makeMyMap</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">states</span><span class="p">,</span> <span class="nx">cities</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">svg</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">datum</span><span class="p">(</span><span class="nx">topojson</span><span class="p">.</span><span class="nx">feature</span><span class="p">(</span><span class="nx">states</span><span class="p">,</span> <span class="nx">states</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">admin1_poly</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;states&#39;</span><span class="p">);</span>
+    <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s1">&#39;.cities&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">cities</span><span class="p">.</span><span class="nx">features</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">pointRadius</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;cities&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
 
-</div></p>
+</div>
+</p>
 	</article>
 </div>
 
